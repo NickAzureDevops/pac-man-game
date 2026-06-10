@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>👻 Pac-Man Game</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>👻 Pac-Man Game</h1>
+      <div id="game-container">
+        <canvas id="game" width="560" height="560"></canvas>
+        <div id="overlay">
+          <h2>👻 Pac-Man</h2>
+          <p>Press <strong>Enter</strong> or <strong>Space</strong> to start</p>
+        </div>
+      </div>
+      <div id="hud">
+        <div>Score: <span id="score">0</span></div>
+        <div>Lives: <span id="lives">3</span></div>
+        <div>Level: <span id="level">1</span></div>
+      </div>
+      <p id="instructions">Arrow keys / WASD to move &nbsp;|&nbsp; Enter / Space to start</p>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
