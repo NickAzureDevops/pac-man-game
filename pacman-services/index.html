@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pac-Man Event Dashboard</title>
+  <style>
+    body {
+      background: #0a0a0a;
+      color: #e0e0e0;
+      font-family: monospace;
+      padding: 2rem;
+    }
+    h1 {
+      color: #c084fc;
+      margin-bottom: 1rem;
+    }
+    #status {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 1rem;
+    }
+    #event-list {
+      list-style: none;
+      padding: 0;
+    }
+    #event-list li {
+      background: #1a1a2e;
+      border-left: 4px solid #c084fc;
+      margin-bottom: 0.5rem;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+    }
+    .event-type {
+      font-weight: bold;
+      color: #f9a8d4;
+      margin-bottom: 0.25rem;
+    }
+    .event-payload {
+      color: #a3e635;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <h1>🕹️ Pac-Man Event Dashboard</h1>
+  <div id="status">Waiting for events…</div>
+  <ul id="event-list"></ul>
+
+  <script>
+    async function fetchEvents() {
+      try {
+        const res = await fetch('/events');
+        const events = await res.json();
+        const list = document.getElementById('event-list');
+        const status = document.getElementById('status');
+
+        list.innerHTML = '';
+        status.textContent = `${events.length} event(s) — last updated ${new Date().toLocaleTimeString()}`;
+
+        events.slice().reverse().forEach(event => {
+          const li = document.createElement('li');
+          const { type, receivedAt, ...payload } = event;
+          li.innerHTML = `
+            <div class="event-type">${type || '(unknown type)'} <span style="color:#888;font-weight:normal;">${receivedAt || ''}</span></div>
+            <div class="event-payload">${JSON.stringify(payload)}</div>
+          `;
+          list.appendChild(li);
+        });
+      } catch (e) {
+        document.getElementById('status').textContent = 'Error fetching events: ' + e.message;
+      }
+    }
+
+    fetchEvents();
+    setInterval(fetchEvents, 2000);
+  </script>
+</body>
+</html>

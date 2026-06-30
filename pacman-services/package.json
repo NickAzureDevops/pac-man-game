@@ -1,0 +1,12 @@
+{
+  "name": "pacman-services",
+  "version": "1.0.0",
+  "description": "Event ingestion and visualisation service for Pac-Man game",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
